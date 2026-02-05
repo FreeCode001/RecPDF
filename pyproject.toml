@@ -1,6 +1,6 @@
 [project]
 name = "recpdf"
-dynamic = ["version"]
+version = "0.1.6"
 description = "Using large model to parse and translate PDF."
 long_description = { file = "README.md" }
 repository = "https://github.com/FreeCode001/RecPDF"
@@ -19,8 +19,3 @@ build-backend = "pdm.backend"
 
 [tool.pdm]
 distribution = true
-
-[tool.pdm.version]
-source = "script"
-version-script = "exec(open('recpdf/version.py').read()); print(__version__)"
-
