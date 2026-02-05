@@ -19,3 +19,11 @@ build-backend = "pdm.backend"
 
 [tool.pdm]
 distribution = true
+
+# 配置 pdm.backend 从 Git 读取版本号
+[tool.pdm.version]
+# 版本源：git（从 Git Tag/提交记录提取）
+source = "git"
+# 可选：Tag 前缀（比如你的 Tag 是 v0.1.0，这里设为 v，会自动去掉前缀）
+tag-prefix = "v"
+
