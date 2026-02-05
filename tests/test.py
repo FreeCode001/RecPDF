@@ -11,10 +11,15 @@ sys.path.append(root_dir)
 pdf_path = f'{root_dir}/examples/test3.pdf'
 output_dir = f'{root_dir}/examples/output/'
 workers = 1
+# 测试解析PDF
 api_key = os.getenv('VLM_API_KEY')
 base_url = os.getenv('VLM_API_BASE')
 model = os.getenv('VLM_API_MODEL')
-
+# 测试调整Markdown
+api_key1 = os.getenv('LLM_API_KEY')
+base_url1 = os.getenv('LLM_API_BASE')
+model1 = os.getenv('LLM_API_MODEL')
+# 测试调整Markdown
 api_key2 = os.getenv('sf_api_key')
 base_url2 = os.getenv('sf_api_base')
 model2 = os.getenv('sf_api_model')
