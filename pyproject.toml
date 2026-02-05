@@ -1,6 +1,6 @@
 [project]
 name = "recpdf"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Using large model to parse and translate PDF."
 long_description = { file = "README.md" }
 repository = "https://github.com/FreeCode001/RecPDF"

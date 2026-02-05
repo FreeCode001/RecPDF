@@ -29,6 +29,7 @@ jobs:
       - name: Build release distributions
         run: |
           # NOTE: put your own distribution build steps here.
+          export SETUPTOOLS_SCM_PRETEND_VERSION=${GITHUB_REF#refs/tags/v}
           python -m pip install build
           python -m build
 
