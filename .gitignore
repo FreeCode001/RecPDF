@@ -1,0 +1,8 @@
+.git
+__pycache__
+.venv
+.env
+.pdm-python
+*.egg-info
+*.lock
+dist/
