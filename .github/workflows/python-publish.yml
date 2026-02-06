@@ -20,12 +20,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      
+          cache: "pdm"
+      - name: install pdm
+        run: |
+          pip install pdm
+      - name: install dev dependencies
+        run: |
+          pdm install --dev
+      - name: dynamic version
+        id: get_version
+        run: echo "VERSION=$(pdm run python -m version)"
       - name: Build release distributions
         run: |
           # NOTE: put your own distribution build steps here.
