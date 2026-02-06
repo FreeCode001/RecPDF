@@ -32,18 +32,12 @@ jobs:
           cache: "pdm"
       - name: install pdm
         run: |
+          python -m pip install --upgrade pip
           pip install pdm
-      - name: install dev dependencies
-        run: |
-          pdm install --dev
-      - name: dynamic version
-        id: get_version
-        run: echo "VERSION=$(pdm run python -m version)"
       - name: Build release distributions
         run: |
           # NOTE: put your own distribution build steps here.
-          python -m pip install build
-          python -m build
+          pdm build
 
       - name: Upload distributions
         uses: actions/upload-artifact@v4

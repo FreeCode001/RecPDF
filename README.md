@@ -54,7 +54,7 @@ print("解析完成，markdown内容已保存到指定目录")
 
 您也可以通过环境变量设置API相关参数，这样在调用函数时就不需要传递这些参数了：
 
-1. 创建一个 `.env`文件：
+1. 创建一个`.env`文件：
 
 ```
 VLM_API_KEY=your_api_key
@@ -88,7 +88,7 @@ content, rect_images = parse_pdf(
 
 #### 调整Markdown结构
 
-RecPDF还提供了一个 `refine_markdown`函数，可以进一步优化生成的markdown文档结构：
+RecPDF还提供了一个`refine_markdown`函数，可以进一步优化生成的markdown文档结构：
 
 ```python
 from recpdf.parser import refine_markdown
@@ -125,7 +125,7 @@ recpdf/
 
 ## 示例
 
-项目提供了一些示例PDF文件和输出结果，位于 `examples/`目录中：
+项目提供了一些示例PDF文件和输出结果，位于`examples/`目录中：
 
 - `examples/test1.pdf` - 简单文本PDF示例
 - `examples/test2.pdf` - 包含图片的PDF示例
@@ -148,5 +148,5 @@ recpdf/
 
 ## 联系方式
 
-- 作者：FreeCode
+- 作者：FreeCode001
 - 邮箱：freecode0902@gmail.com

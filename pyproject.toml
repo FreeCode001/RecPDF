@@ -21,5 +21,4 @@ build-backend = "pdm.backend"
 distribution = true
 
 [tool.pdm.version]
-source = "git"
-tag-prefix = ["v",""]
+source = "scm"
