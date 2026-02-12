@@ -77,7 +77,9 @@ content, rect_images = parse_pdf(
 
 print("解析完成，markdown内容已保存到指定目录")
 ```
+
 ### 环境变量配置文件
+
 1. 创建 `.env`文件：
 
 ```env
@@ -391,14 +393,14 @@ python -m pytest tests/
 
 ## 更新日志
 
-### v0.1.8
+### v0.1.9
 
 - 添加多语言翻译功能
 - 支持Google、DeepL、HuggingFace、OpenAI翻译引擎
 - 优化PDF解析性能
 - 改进markdown结构优化算法
 
-### v0.1.7
+### v0.1.0
 
 - 初始版本发布
 - 基础PDF解析功能

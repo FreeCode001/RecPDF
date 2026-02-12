@@ -216,9 +216,11 @@ translate_markdown(
 ### Main Functions
 
 #### `parse_pdf()`
+
 Parse PDF documents and convert them to markdown format.
 
 **Parameters:**
+
 - `pdf_path` (str): Path to PDF file
 - `output_dir` (str, optional): Output directory, default is './'
 - `settings` (Settings, optional): Configuration object containing API key, base URL, model name, etc.
@@ -228,25 +230,31 @@ Parse PDF documents and convert them to markdown format.
 - `sys_prompt` (str, optional): System prompt
 
 **Returns:**
+
 - `content` (str): Parsed markdown content
 - `rect_images` (List[str]): List of rectangle image paths
 
 #### `refine_markdown()`
+
 Optimize markdown document structure.
 
 **Parameters:**
+
 - `markdown_path` (str): Path to markdown file
 - `settings` (Settings, optional): Configuration object containing API key, base URL, model name, etc.
 - `prompt` (str, optional): Custom optimization prompt
 - `sys_prompt` (str, optional): System prompt
 
 **Returns:**
+
 - `str`: Optimized markdown content
 
 #### `translate_markdown()`
+
 Translate markdown documents.
 
 **Parameters:**
+
 - `input_path` (str): Input file path
 - `output_path` (str): Output file path
 - `settings` (Settings, optional): Configuration object
@@ -254,12 +262,15 @@ Translate markdown documents.
 - `target_lang` (str, optional): Target language, default "ZH"
 
 **Returns:**
+
 - `str`: Translated file path
 
 #### `translate_text()`
+
 Translate plain text content.
 
 **Parameters:**
+
 - `input_path` (str): Input file path
 - `output_path` (str): Output file path
 - `settings` (Settings, optional): Configuration object
@@ -267,24 +278,29 @@ Translate plain text content.
 - `target_lang` (str, optional): Target language, default "ZH"
 
 **Returns:**
+
 - `str`: Translated file path
 
 ### Configuration Class
 
 #### `Settings`
+
 RecPDF configuration management class, supporting the following configuration options:
 
 **Parser Configuration:**
+
 - `parser_api_key` (str): Parser API key
 - `parser_api_base` (str): Parser API base URL
 - `parser_api_model` (str): Parser model name
 
 **Refiner Configuration:**
+
 - `refine_api_key` (str): Refiner API key
 - `refine_api_base` (str): Refiner API base URL
 - `refine_api_model` (str): Refiner model name
 
 **Translator Configuration:**
+
 - `translation_engine` (str): Translation engine (deepl, googletrans, huggingface, openai)
 - `translator_api_key` (str): Translator API key
 - `translator_api_base` (str): Translator API base URL
@@ -377,13 +393,15 @@ python -m pytest tests/
 
 ## Changelog
 
-### v0.1.8
+### v0.1.9
+
 - Added multi-language translation functionality
 - Support for Google, DeepL, HuggingFace, OpenAI translation engines
 - Optimized PDF parsing performance
 - Improved markdown structure optimization algorithm
 
-### v0.1.7
+### v0.1.0
+
 - Initial release
 - Basic PDF parsing functionality
 - Markdown output support
