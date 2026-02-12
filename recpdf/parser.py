@@ -4,9 +4,7 @@ RecPDF包:
 主接口：parse_pdf
     @param pdf_path: PDF文件路径
     @param output_dir: 输出目录
-    @param api_key: API密钥
-    @param base_url: API基础URL
-    @param model: 模型名称
+    @param settings: 配置参数
     @param workers: 工作线程数
     @param prompt: 解析提示词
     @param rect_prompt: 矩形解析提示词
@@ -29,8 +27,9 @@ import shapely.geometry as sg
 from typing import List, Tuple
 from shapely.validation import explain_validity
 from .utils import merge_rects, adsorb_rects_to_rects, remove_markdown_backticks
-from .prompts import DEFAULT_PROMPT, DEFAULT_RECT_PROMPT, DEFAULT_SYS_PROMPT, REFINE_PROMPT, REFINE_SYS_PROMPT
-from .models import init_vlm, init_llm
+from .prompts import DEFAULT_PARSER_PROMPT, DEFAULT_RECT_PROMPT, DEFAULT_SYS_PROMPT, REFINE_PROMPT, REFINE_SYS_PROMPT
+from .models import init_parser_model, init_refine_model
+from .config import Settings
 import concurrent.futures
 
 
@@ -134,14 +133,13 @@ def parse_pdf_to_images(pdf_path, output_dir = './'):
     return image_infos
 
 
+# 解析PDF文件到markdown文件
 def parse_pdf(
         pdf_path: str,
         output_dir: str = './',
-        api_key: str = '',
-        base_url: str = '',
-        model: str = '',
+        settings: Settings = None,
         workers: int = 1,
-        prompt = DEFAULT_PROMPT,
+        prompt = DEFAULT_PARSER_PROMPT,
         rect_prompt = DEFAULT_RECT_PROMPT,
         sys_prompt = DEFAULT_SYS_PROMPT,
 ) -> Tuple[str, List[str]]:
@@ -151,6 +149,13 @@ def parse_pdf(
     @param output_dir: 输出目录
     @return: 解析后的markdown内容, 矩形图片路径列表
     """
+    if not settings:
+        settings = Settings()
+
+    api_key = settings.parser_api_key
+    base_url = settings.parser_api_base
+    model = settings.parser_api_model
+    
     file_name_as_subpath = os.path.basename(pdf_path).replace('.pdf', '')
     output_dir = os.path.join(output_dir, file_name_as_subpath)
     if not os.path.exists(output_dir):
@@ -159,10 +164,10 @@ def parse_pdf(
     file_name = os.path.basename(pdf_path).replace('.pdf', '.md')
     image_infos = parse_pdf_to_images(pdf_path, output_dir=output_dir)
 
-    # 初始化大模型
+    # 初始化解析模型
     if not api_key or not base_url or not model:
-        raise ValueError("api_key, base_url, and model are required parameters")
-    parse_model = init_vlm(api_key, base_url, model)
+        raise ValueError("api_key, base_url, and model are required parameters. Config in .env file or pass as arguments.")
+    parse_model = init_parser_model(api_key, base_url, model)
 
     # Process images with Vision Large Model
     def _process_page(index: int, image_info: Tuple[str, List[str]]) -> Tuple[int, str]:
@@ -220,11 +225,10 @@ def parse_pdf(
 
     return content, all_rect_images
 
+# 格式优化markdown文件
 def refine_markdown(
         markdown_path: str,
-        api_key: str = '',
-        base_url: str = '',
-        model: str = '',
+        settings: Settings = None,
         prompt = REFINE_PROMPT,
         sys_prompt = REFINE_SYS_PROMPT,
 ) -> str:
@@ -233,10 +237,17 @@ def refine_markdown(
     @param markdown: 输入的markdown内容
     @return: 调整后的markdown内容
     """
+    if not settings:
+        settings = Settings()
+    
+    api_key = settings.refine_api_key
+    base_url = settings.refine_api_base
+    model = settings.refine_api_model
+    
     # 初始化大模型
     if not api_key or not base_url or not model:
-        raise ValueError("api_key, base_url, and model are required parameters")
-    refine_model = init_llm(api_key, base_url, model)
+        raise ValueError("api_key, base_url, and model are required parameters.")
+    refine_model = init_refine_model(api_key, base_url, model)
 
     with open(markdown_path, 'r', encoding='utf-8') as f:
         markdown = f.read()

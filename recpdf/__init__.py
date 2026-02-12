@@ -1,4 +1,8 @@
 from .parser import parse_pdf, refine_markdown
+from .translator import translate_markdown, translate_text
+from .config import Settings
+
+__all__ = [parse_pdf, refine_markdown, translate_markdown, translate_text, Settings]
 
 # Version information
 try:
